@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
 import styles from "./CityItem.module.css";
 
 const formatDate = (date) =>
@@ -13,10 +14,17 @@ function CityItem({ city }) {
   const { cityName, emoji, date } = city;
 
   return (
-    <li className={styles.cityItem}>
-      <span className={styles.emoji}>{emoji}</span>
-      <h3 className={styles.name}>{cityName}</h3>
-      <time className={styles.date}>({formatDate(date)})</time>
+    <li>
+      <Link
+        to={`/app/cities/${city.id}?lat=${city.position.lat}&lng=${city.position.lng}`}
+        className={styles.cityItem}
+      >
+        <span className={styles.emoji} role="img" aria-label={cityName}>
+          {emoji}
+        </span>
+        <span className={styles.cityName}>{cityName}</span>
+        <span className={styles.date}>{formatDate(date)}</span>
+      </Link>
     </li>
   );
 }
