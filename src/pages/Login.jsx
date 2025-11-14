@@ -30,7 +30,7 @@ export default function Login() {
         </div>
 
         <div>
-          <button>Login</button>
+          <button className="primary">Login</button>
         </div>
       </form>
     </main>
