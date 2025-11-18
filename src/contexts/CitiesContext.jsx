@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 
-const BASE_URL = "http://localhost:9000";
+const BASE_URL = "http://localhost:8000";
 
 const CitiesContext = createContext();
 
@@ -72,12 +72,13 @@ function CitiesProvider({ children }) {
 
       try {
         const res = await fetch(`${BASE_URL}/cities`);
+        if (!res.ok) throw new Error(`Load failed: ${res.status}`);
         const data = await res.json();
         dispatch({ type: "cities/loaded", payload: data });
-      } catch {
+      } catch (err) {
         dispatch({
           type: "rejected",
-          payload: "There was an error loading cities...",
+          payload: err.message || "There was an error loading cities...",
         });
       }
     }
@@ -86,18 +87,19 @@ function CitiesProvider({ children }) {
 
   const getCity = useCallback(
     async function getCity(id) {
-      if (Number(id) === currentCity.id) return;
+      if (id === currentCity.id) return;
 
       dispatch({ type: "loading" });
 
       try {
         const res = await fetch(`${BASE_URL}/cities/${id}`);
+        if (!res.ok) throw new Error(`Load city failed: ${res.status}`);
         const data = await res.json();
         dispatch({ type: "city/loaded", payload: data });
-      } catch {
+      } catch (err) {
         dispatch({
           type: "rejected",
-          payload: "There was an error loading the city...",
+          payload: err.message || "There was an error loading the city...",
         });
       }
     },
@@ -108,21 +110,39 @@ function CitiesProvider({ children }) {
     dispatch({ type: "loading" });
 
     try {
+      const payload = {
+        id:
+          typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : Date.now().toString(),
+        cityName: newCity.cityName,
+        country: newCity.country,
+        emoji: newCity.emoji,
+        // store ISO string for consistency
+        date: new Date(newCity.date).toISOString(),
+        notes: newCity.notes ?? "",
+        position: {
+          lat: Number(newCity.position.lat),
+          lng: Number(newCity.position.lng),
+        },
+      };
+
       const res = await fetch(`${BASE_URL}/cities`, {
         method: "POST",
-        body: JSON.stringify(newCity),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
       });
-      const data = await res.json();
+      if (!res.ok) throw new Error(`Create failed: ${res.status}`);
+      const data = await res.json(); // json-server returns the created entity
 
       dispatch({ type: "city/created", payload: data });
-    } catch {
+      return data;
+    } catch (err) {
       dispatch({
         type: "rejected",
-        payload: "There was an error creating the city...",
+        payload: err.message || "There was an error creating the city...",
       });
+      throw err;
     }
   }
 
@@ -130,15 +150,13 @@ function CitiesProvider({ children }) {
     dispatch({ type: "loading" });
 
     try {
-      await fetch(`${BASE_URL}/cities/${id}`, {
-        method: "DELETE",
-      });
-
+      const res = await fetch(`${BASE_URL}/cities/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
       dispatch({ type: "city/deleted", payload: id });
-    } catch {
+    } catch (err) {
       dispatch({
         type: "rejected",
-        payload: "There was an error deleting the city...",
+        payload: err.message || "There was an error deleting the city...",
       });
     }
   }
@@ -162,8 +180,9 @@ function CitiesProvider({ children }) {
 
 function useCities() {
   const context = useContext(CitiesContext);
-  if (context === undefined)
-    throw new Error("CitiesContext was used outside the CitiesProvider");
+  if (context === undefined) {
+    throw new Error("useCities must be used within a CitiesProvider");
+  }
   return context;
 }
 
