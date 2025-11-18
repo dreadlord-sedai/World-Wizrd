@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-
 import { Link } from "react-router-dom";
+import { useCities } from "../contexts/CitiesContext";
 import styles from "./CityItem.module.css";
 
 const formatDate = (date) =>
@@ -11,19 +10,28 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function CityItem({ city }) {
-  const { cityName, emoji, date } = city;
+  const { currentCity, deleteCity } = useCities();
+  const { cityName, emoji, date, id, position } = city;
+
+  function handleClick(e) {
+    e.preventDefault();
+    deleteCity(id);
+  }
 
   return (
     <li>
       <Link
-        to={`/app/cities/${city.id}?lat=${city.position.lat}&lng=${city.position.lng}`}
-        className={styles.cityItem}
+        className={`${styles.cityItem} ${
+          id === currentCity.id ? styles["cityItem--active"] : ""
+        }`}
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
       >
-        <span className={styles.emoji} role="img" aria-label={cityName}>
-          {emoji}
-        </span>
-        <span className={styles.cityName}>{cityName}</span>
-        <span className={styles.date}>{formatDate(date)}</span>
+        <span className={styles.emoji}>{emoji}</span>
+        <h3 className={styles.name}>{cityName}</h3>
+        <time className={styles.date}>({formatDate(date)})</time>
+        <button className={styles.deleteBtn} onClick={handleClick}>
+          &times;
+        </button>
       </Link>
     </li>
   );
