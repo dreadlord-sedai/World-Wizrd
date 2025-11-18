@@ -3,8 +3,8 @@ import styles from "./Logo.module.css";
 
 function Logo() {
   return (
-    <Link to="/">
-      <img src="/logo.png" alt="WorldWise logo" className={styles.logo} />
+    <Link to="/" className={styles.logo} aria-label="World Wizard home">
+      <span className={styles.textLogo}>World Wizard</span>
     </Link>
   );
 }
