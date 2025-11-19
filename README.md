@@ -2,7 +2,7 @@
 
 ![image](screenshot.png)
 
-https://github.com/user-attachments/assets/Video.mp4
+[![Watch the video](https://img.youtube.com/vi/cPBOXLhCfGw/maxresdefault.jpg)](https://youtu.be/cPBOXLhCfGw?si=W4Z-2ZXJtg_5bcoi)
 
 ## Table of Contents
 
