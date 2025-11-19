@@ -2,8 +2,6 @@
 
 ![image](screenshot.png)
 
-https://raw.githubusercontent.com/dreadlord-sedai/World-Wizrd/refs/heads/main/Demo.mp4
-
 [![Watch on YouTube](https://img.youtube.com/vi/cPBOXLhCfGw/maxresdefault.jpg)](https://youtu.be/cPBOXLhCfGw?si=W4Z-2ZXJtg_5bcoi)
 
 ## Table of Contents
