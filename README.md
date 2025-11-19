@@ -2,7 +2,9 @@
 
 ![image](screenshot.png)
 
-[![Watch the video](https://img.youtube.com/vi/cPBOXLhCfGw/maxresdefault.jpg)](https://youtu.be/cPBOXLhCfGw?si=W4Z-2ZXJtg_5bcoi)
+https://github.com/dreadlord-sedai/World-Wizrd/blob/main/demo.mp4
+
+[![Watch on YouTube](https://img.youtube.com/vi/cPBOXLhCfGw/maxresdefault.jpg)](https://youtu.be/cPBOXLhCfGw?si=W4Z-2ZXJtg_5bcoi)
 
 ## Table of Contents
 
