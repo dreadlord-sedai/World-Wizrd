@@ -47,11 +47,12 @@ World Wizard is a React + Vite single-page application that helps travelers keep
 - **JSON Server**: Lightweight REST API for cities CRUD at `http://localhost:8000`.
 - **React DatePicker**: User-friendly visit date selection.
 
-![HTML5](https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg)
-![CSS3](https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg)
-![JavaScript](https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg)
-![React](https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg)
-![Vite](https://raw.githubusercontent.com/devicons/devicon/master/icons/vite/vite-original.svg)
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,js,nodejs,css" />
+  </a>
+</p>
+
 
 ## Installation
 
